@@ -7,6 +7,10 @@
 
 import Foundation
 
+class SelectedUserViewModel: ObservableObject {
+    @Published var selectedUser: String = "Selected User Name"
+}
+
 struct UsersData: Codable{
     var total_pages: Int
     var data: [User]

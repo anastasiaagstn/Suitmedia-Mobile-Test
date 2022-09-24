@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-class selectedUser: ObservableObject {
-    @Published var selectedUser: String = "Select a User"
-}
+
 
 struct FirstView: View {
+    @State var usernameViewModel : SelectedUserViewModel = SelectedUserViewModel()
     @State private var usernameInput: String = ""
     @State private var textInput: String = ""
     @State private var showAlert = false
@@ -53,7 +52,7 @@ struct FirstView: View {
                     }
                     
                 
-                NavigationLink(destination: SecondView(username: usernameInput), label: {
+                NavigationLink(destination: SecondView(usernameViewModel: usernameViewModel, username: usernameInput), label: {
                     Text("NEXT")
                         .frame(width: 300, height: 40)
                         .foregroundColor(Color.white)

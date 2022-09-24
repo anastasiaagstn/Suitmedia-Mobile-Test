@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SecondView: View {
-    
+    @ObservedObject var usernameViewModel: SelectedUserViewModel
     var username: String
     var body: some View {
 //        NavigationView{
@@ -21,10 +21,10 @@ struct SecondView: View {
                     .font(.system(size: 24))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .offset(x: 20)
-                Text("\(userItem.selectedUser)")
+                Text("\(usernameViewModel.selectedUser)")
                     .font(.system(size: 28, weight: .bold))
                     .frame(height: 500)
-                NavigationLink (destination: ThirdView()) {
+                NavigationLink (destination: ThirdView(usernameViewModel: usernameViewModel)) {
                     Text("Choose a User")
                         .frame(width: 300, height: 40, alignment: .center)
                         .foregroundColor(Color.white)
@@ -39,6 +39,6 @@ struct SecondView: View {
 
 struct SecondView_Previews: PreviewProvider {
     static var previews: some View {
-        SecondView(username: "Test")
+        SecondView(usernameViewModel: SelectedUserViewModel(), username: "Test")
     }
 }

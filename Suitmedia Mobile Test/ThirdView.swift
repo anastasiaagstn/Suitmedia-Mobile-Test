@@ -17,6 +17,7 @@ extension User {
 
 @MainActor
 class userModel: ObservableObject{
+    
     @Published var users: [User] = [User]()
     @Published var page = 1
     @Published var totalPage = 1
@@ -46,13 +47,16 @@ class userModel: ObservableObject{
 }
 
 struct ThirdView: View {
+    @ObservedObject var usernameViewModel: SelectedUserViewModel
     @ObservedObject var viewModel = userModel()
-    @EnvironmentObject var userItem: selectedUser
+    
 //    @State private var users = [User]()
     
     var body: some View {
         List(viewModel.users) {user in
-            userRowView(userItem: user)
+            userRowView(userItem: user).onTapGesture {
+                usernameViewModel.selectedUser = "\(user.first_name) \(user.last_name)"
+            }
         }.task {
             await viewModel.loadNewData()
             print(viewModel.page)
@@ -118,6 +122,6 @@ private struct userRowView: View{
 
 struct ThirdView_Previews: PreviewProvider {
     static var previews: some View {
-        ThirdView()
+        ThirdView(usernameViewModel: SelectedUserViewModel())
     }
 }
